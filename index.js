@@ -34,7 +34,7 @@ var api = new ParseServer({
       // Your domain from mailgun.com 
       domain: 'sandboxa1ec5ea321634f19b1e8eb5d2af355ba.mailgun.org',
       // Your API key from mailgun.com 
-      apiKey: '3acca1a5886ee455c5612e9ad7dcd504',
+      apiKey: 'key-3acca1a5886ee455c5612e9ad7dcd504',
        // Password reset email subject
       passwordResetSubject: 'Password Reset Request for %appname%',
       // Password reset email body
