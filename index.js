@@ -23,6 +23,9 @@ var api = new ParseServer({
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   },
+  publicServerURL: 'https://example.com/parse',
+  // Your apps name. This will appear in the subject and body of the emails that are sent.
+  appName: 'Parse App',
   emailAdapter: {
     module: 'parse-server-mailgun',
     options: {
