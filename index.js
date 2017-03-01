@@ -4,6 +4,8 @@
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
+const resolve = require('path').resolve;
+
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -20,6 +22,39 @@ var api = new ParseServer({
   serverURL: process.env.SERVER_URL || 'https://localhost:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
+  },
+  emailAdapter: {
+    module: 'parse-server-mailgun',
+    options: {
+      // The address that your emails come from 
+      fromAddress: 'Starpark <postmaster@sandboxa1ec5ea321634f19b1e8eb5d2af355ba.mailgun.org>',
+      // Your domain from mailgun.com 
+      domain: 'sandboxa1ec5ea321634f19b1e8eb5d2af355ba.mailgun.org',
+      // Your API key from mailgun.com 
+      apiKey: '3acca1a5886ee455c5612e9ad7dcd504',
+      // The template section 
+      templates: {
+        passwordResetEmail: {
+          subject: 'Reset your password',
+          pathPlainText: resolve(__dirname, 'path/to/templates/password_reset_email.txt'),
+          pathHtml: resolve(__dirname, 'path/to/templates/password_reset_email.html'),
+          callback: (user) => { return { firstName: user.get('firstName') }}
+          // Now you can use {{firstName}} in your templates 
+        }
+        // verificationEmail: {
+        //   subject: 'Confirm your account',
+        //   pathPlainText: resolve(__dirname, 'path/to/templates/verification_email.txt'),
+        //   pathHtml: resolve(__dirname, 'path/to/templates/verification_email.html'),
+        //   callback: (user) => { return { firstName: user.get('firstName') }}
+        //   // Now you can use {{firstName}} in your templates 
+        // },
+        // customEmailAlert: {
+        //   subject: 'Urgent notification!',
+        //   pathPlainText: resolve(__dirname, 'path/to/templates/custom_alert.txt'),
+        //   pathHtml: resolve(__dirname, 'path/to/templates/custom_alert.html'),
+        // }
+      }
+    }
   }
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
