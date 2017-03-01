@@ -25,9 +25,9 @@ var api = new ParseServer({
   },
   publicServerURL: 'https://example.com/parse',
   // Your apps name. This will appear in the subject and body of the emails that are sent.
-  appName: 'Parse App',
+  appName: 'StarPark',
   emailAdapter: {
-    module: 'parse-server-mailgun',
+    module: 'parse-server-mailgun-adapter-template',
     options: {
       // The address that your emails come from 
       fromAddress: 'Starpark <postmaster@sandboxa1ec5ea321634f19b1e8eb5d2af355ba.mailgun.org>',
@@ -35,15 +35,23 @@ var api = new ParseServer({
       domain: 'sandboxa1ec5ea321634f19b1e8eb5d2af355ba.mailgun.org',
       // Your API key from mailgun.com 
       apiKey: '3acca1a5886ee455c5612e9ad7dcd504',
+       // Password reset email subject
+      passwordResetSubject: 'Password Reset Request for %appname%',
+      // Password reset email body
+      passwordResetBody: 'Hi,\n\nYou requested a password reset for %appname%.\n\nClick here to reset it:\n%link%',
+      //OPTIONAL (will send HTML version of email):
+      // passwordResetBodyHTML: "<!DOCTYPE html><html xmlns=http://www.w3.org/1999/xhtml>........",
+      
+
       // The template section 
-      templates: {
-        passwordResetEmail: {
-          subject: 'Reset your password',
-          // pathPlainText: resolve(__dirname, 'path/to/templates/password_reset_email.txt'),
-          // pathHtml: resolve(__dirname, 'path/to/templates/password_reset_email.html'),
-          callback: (user) => { return { firstName: user.get('firstName') }}
-          // Now you can use {{firstName}} in your templates 
-        }
+      // templates: {
+      //   passwordResetEmail: {
+      //     subject: 'Reset your password',
+      //     pathPlainText: resolve(__dirname, 'path/to/templates/password_reset_email.txt'),
+      //     pathHtml: resolve(__dirname, 'path/to/templates/password_reset_email.html'),
+      //     callback: (user) => { return { firstName: user.get('firstName') }}
+      //     // Now you can use {{firstName}} in your templates 
+      //   }
         // verificationEmail: {
         //   subject: 'Confirm your account',
         //   pathPlainText: resolve(__dirname, 'path/to/templates/verification_email.txt'),
@@ -56,7 +64,7 @@ var api = new ParseServer({
         //   pathPlainText: resolve(__dirname, 'path/to/templates/custom_alert.txt'),
         //   pathHtml: resolve(__dirname, 'path/to/templates/custom_alert.html'),
         // }
-      }
+      // }
     }
   }
 });
