@@ -8,6 +8,7 @@ const resolve = require('path').resolve;
 var Parse = require('parse/node');
 
 Parse.initialize("1j5AUs95Nx9y4fbZJEXZNiOVEjcbJjalTFbxMGFQ", "xRbUuRWOv21pvLmBddf9gTcmcnyX1R9AHkjHNRnb","xRbUuRWOv21pvLmBddf9gTcmcnyX1R9AHkjHNRnb");
+Parse.serverURL = process.env.SERVER_URL || 'https://localhost:1337/parse'
 Parse.Cloud.useMasterKey();
 
 
@@ -15,7 +16,6 @@ Parse.Cloud.useMasterKey();
 // Parse.serverURL = 'http://localhost:1337/parse';
 // var databaseUri = "mongodb://heroku_h5sc1hpx:jer7765m@ds023530.mlab.com:23530/heroku_h5sc1hpx";
 
-Parse.serverURL = process.env.SERVER_URL || 'https://localhost:1337/parse'
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 if (!databaseUri) {
