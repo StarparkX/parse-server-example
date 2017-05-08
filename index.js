@@ -7,15 +7,15 @@ var path = require('path');
 const resolve = require('path').resolve;
 var Parse = require('parse/node');
 
-// Parse.initialize("1j5AUs95Nx9y4fbZJEXZNiOVEjcbJjalTFbxMGFQ", "xRbUuRWOv21pvLmBddf9gTcmcnyX1R9AHkjHNRnb","xRbUuRWOv21pvLmBddf9gTcmcnyX1R9AHkjHNRnb");
+Parse.initialize("1j5AUs95Nx9y4fbZJEXZNiOVEjcbJjalTFbxMGFQ", "xRbUuRWOv21pvLmBddf9gTcmcnyX1R9AHkjHNRnb","xRbUuRWOv21pvLmBddf9gTcmcnyX1R9AHkjHNRnb");
+Parse.Cloud.useMasterKey();
+
+
+
 // Parse.serverURL = 'http://localhost:1337/parse';
-// Parse.Cloud.useMasterKey();
+// var databaseUri = "mongodb://heroku_h5sc1hpx:jer7765m@ds023530.mlab.com:23530/heroku_h5sc1hpx";
 
-
-
-
- // var databaseUri = "mongodb://heroku_h5sc1hpx:jer7765m@ds023530.mlab.com:23530/heroku_h5sc1hpx";
- 
+Parse.serverURL = process.env.SERVER_URL || 'https://localhost:1337/parse'
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 if (!databaseUri) {
@@ -110,23 +110,23 @@ app.get('/test', function(req, res) {
 });
 
 app.get('/payment', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/payment.html'))
-//     Parse.User.enableUnsafeCurrentUser()
-//     console.log('token '+ req.query.sessionToken);
-//     Parse.User.become(req.query.sessionToken).then(function (user) {
-//       user.set("phone","000")
-//       user.save().then(
-//         function(object){
-//              console.log("success")
-//              res.sendFile(path.join(__dirname, '/public/payment.html')) },
-//         function(error){
-//              console.log("error "+error.message)
-//     } )
+  // res.sendFile(path.join(__dirname, '/public/payment.html'))
+    Parse.User.enableUnsafeCurrentUser()
+    console.log('token '+ req.query.sessionToken);
+    Parse.User.become(req.query.sessionToken).then(function (user) {
+      user.set("paid",true)
+      user.save().then(
+        function(object){
+             console.log("success")
+             res.sendFile(path.join(__dirname, '/public/payment.html')) },
+        function(error){
+             console.log("error "+error.message)
+    } )
       
-//   // The current user is now set to user.
-// }, function (error) {
-//   console.log("error "+error.message) 
-// });
+  // The current user is now set to user.
+}, function (error) {
+  console.log("error "+error.message) 
+});
 
     
 });
