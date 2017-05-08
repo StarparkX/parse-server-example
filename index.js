@@ -8,7 +8,7 @@ const resolve = require('path').resolve;
 var Parse = require('parse/node');
 
 Parse.initialize("1j5AUs95Nx9y4fbZJEXZNiOVEjcbJjalTFbxMGFQ", "xRbUuRWOv21pvLmBddf9gTcmcnyX1R9AHkjHNRnb","xRbUuRWOv21pvLmBddf9gTcmcnyX1R9AHkjHNRnb");
-Parse.serverURL = process.env.SERVER_URL || 'https://localhost:1337/parse'
+Parse.serverURL = 'https://starpark.herokuapp.com/parse'
 Parse.Cloud.useMasterKey();
 
 
